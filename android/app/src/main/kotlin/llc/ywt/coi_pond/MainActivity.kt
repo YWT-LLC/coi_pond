@@ -1,0 +1,5 @@
+package llc.ywt.coi_pond
+
+import io.flutter.embedding.android.FlutterActivity
+
+class MainActivity : FlutterActivity()

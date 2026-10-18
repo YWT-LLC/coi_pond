@@ -1,0 +1,33 @@
+name: coi_pond
+description: "Control Over Individual Privacy Organization Networking & Data"
+version: 1.0.0
+publish_to: 'none'
+
+environment:
+  sdk: ^3.6.0
+
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_localizations:
+    sdk: flutter
+
+  # Flutter (Google)
+  go_router: ^18.1.0
+  intl: ^0.20.3
+  shared_preferences: ^2.5.6
+
+  # Community
+  provider: ^6.1.5+1
+
+  # Local
+  open_ui:
+    path: ../open_ui
+
+dev_dependencies:
+  dependency_validator: ^5.1.0
+  flutter_lints: ^6.0.0
+
+flutter:
+  generate: true
+  uses-material-design: true
