@@ -11,5 +11,4 @@ export 'settings.dart';
 
 // Route names //
 
-/// settings-hub
 const String settingsHubPath = 'settings-hub';
