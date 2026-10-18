@@ -30,11 +30,11 @@ void main() async {
         allowList: allEZConfigKeys.keys.toSet(),
       ),
     ),
-    defaults: coiPondConfig,
+    defaults: isMobile() ? ywtMobileConfig : ywtDesktopConfig,
   );
 
   // Run the app //
-  
+
   final (Locale storedLocale, OUILang storedOUILang) = await ezStoredL10n();
 
   runApp(CoiPond(
@@ -48,7 +48,7 @@ class CoiPond extends StatelessWidget {
   final Locale storedLocale;
   final OUILang storedOUILang;
   final Lang storedLang;
-  
+
   const CoiPond(
     this.storedLocale,
     this.storedOUILang,
@@ -58,33 +58,33 @@ class CoiPond extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => EzConfigurableApp(
-      localizationsDelegates: ezLocalizationsDelegates(Lang.localizationsDelegates),
-      supportedLocales: Lang.supportedLocales,
-      locale: storedLocale,
-      el10n: storedOUILang,
-      appCache: CoiPondCache(storedLocale, storedLang),
-      routerConfig: GoRouter(
-        navigatorKey: ezRootNav,
-        initialLocation: homePath,
-        errorBuilder: (_, GoRouterState state) => const ErrorScreen(),
-        routes: <RouteBase>[
-          // Home
-          GoRoute(
-            path: homePath,
-            name: homePath,
-            pageBuilder: (BuildContext pbc, GoRouterState pbs) =>
-                ezPageBuilder(configWatcher(pbc), pbc, pbs, const HomeScreen()),
-            routes: <RouteBase>[
-              // Settings
-              GoRoute(
-                path: settingsHubPath,
-                name: settingsHubPath,
-                pageBuilder: (BuildContext pbc, GoRouterState pbs) =>
-                    ezPageBuilder(configWatcher(pbc), pbc, pbs, const SettingsHubScreen()),
-              ),
-            ],
-          ),
-        ],
-      ),
-    );
+        localizationsDelegates: ezLocalizationsDelegates(Lang.localizationsDelegates),
+        supportedLocales: Lang.supportedLocales,
+        locale: storedLocale,
+        el10n: storedOUILang,
+        appCache: CoiPondCache(storedLocale, storedLang),
+        routerConfig: GoRouter(
+          navigatorKey: ezRootNav,
+          initialLocation: homePath,
+          errorBuilder: (_, GoRouterState state) => const ErrorScreen(),
+          routes: <RouteBase>[
+            // Home
+            GoRoute(
+              path: homePath,
+              name: homePath,
+              pageBuilder: (BuildContext pbc, GoRouterState pbs) =>
+                  ezPageBuilder(configWatcher(pbc), pbc, pbs, const HomeScreen()),
+              routes: <RouteBase>[
+                // Settings
+                GoRoute(
+                  path: settingsHubPath,
+                  name: settingsHubPath,
+                  pageBuilder: (BuildContext pbc, GoRouterState pbs) =>
+                      ezPageBuilder(configWatcher(pbc), pbc, pbs, const SettingsHubScreen()),
+                ),
+              ],
+            ),
+          ],
+        ),
+      );
 }
