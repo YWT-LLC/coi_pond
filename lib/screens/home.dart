@@ -3,12 +3,14 @@
  * See LICENSE for distribution and usage details.
  */
 
+import '../screens/export.dart';
 import '../utils/export.dart';
 import '../widgets/export.dart';
 
 import 'package:open_ui/open_ui.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:go_router/go_router.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -19,8 +21,6 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   // Define the build data //
-
-  int count = 0;
 
   // Set the page title //
 
@@ -43,24 +43,29 @@ class _HomeScreenState extends State<HomeScreen> {
             child: EzCol(
               mainAxisSize: MainAxisSize.max,
               mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                Text(
-                  l10n(config).hsCounterLabel,
-                  style: ezSubTitleStyle(config.styles),
-                  textAlign: TextAlign.center,
-                ),
-                Text(
-                  count.toString(),
-                  style: config.headlineStyle,
-                  textAlign: TextAlign.center,
-                ),
-              ],
+              children: Module.values
+                  .map((Module module) => Padding(
+                        padding: EzInsets.col(config.spacing),
+                        child: EzTextIconButton(
+                          config,
+                          label: module.name,
+                          icon: EzIcon(config, module.icon),
+                          onPressed: () async {
+                            config.swapCache(await module.cache(config));
+                            if (context.mounted) context.goNamed(module.name);
+                          },
+                        ),
+                      ))
+                  .toList(),
             ),
           ),
         ),
         fabs: <Widget>[
-          config.spacer,
-          CountFAB(config, () => setState(() => count += 1)),
+          FloatingActionButton(
+            heroTag: 'settingsFAB',
+            onPressed: () => context.goNamed(settingsScreenName),
+            child: EzIcon(config, Icons.settings),
+          ),
         ],
         isHome: true,
       ),

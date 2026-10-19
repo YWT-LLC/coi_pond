@@ -6,9 +6,6 @@
 import './screens/export.dart';
 import './utils/export.dart';
 
-import 'package:a11how/main.dart' as a11;
-import 'package:sos/main.dart' as sos;
-
 import 'package:open_ui/open_ui.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -20,26 +17,26 @@ import 'package:shared_preferences/shared_preferences.dart';
 final List<RouteBase> routes = <RouteBase>[
   // Home
   GoRoute(
-    path: '/',
-    name: '/',
+    path: homePath,
+    name: homeName,
     pageBuilder: (BuildContext pbc, GoRouterState pbs) =>
         ezPageBuilder(configWatcher(pbc), pbc, pbs, const HomeScreen()),
     routes: <RouteBase>[
-      StatefulShellRoute.indexedStack(
-        builder: (_, __, StatefulNavigationShell curr) => curr,
-        branches: <StatefulShellBranch>[
-          StatefulShellBranch(routes: a11.routes),
-          StatefulShellBranch(routes: sos.routes),
-        ],
-      ),
-
       // Settings
       GoRoute(
-        path: settingsHubPath,
-        name: settingsHubPath,
+        path: settingsScreenPath,
+        name: settingsScreenName,
         pageBuilder: (BuildContext pbc, GoRouterState pbs) =>
             ezPageBuilder(configWatcher(pbc), pbc, pbs, const SettingsHubScreen()),
       ),
+
+      ...Module.values.map((Module module) => GoRoute(
+            path: module.path,
+            name: module.name,
+            pageBuilder: (BuildContext pbc, GoRouterState pbs) =>
+                ezPageBuilder(configWatcher(pbc), pbc, pbs, module.homeScreen),
+            routes: module.routes,
+          )),
     ],
   ),
 ];
@@ -67,7 +64,7 @@ class CoiPond extends StatelessWidget {
         appCache: CoiPondCache(storedLocale, storedLang),
         routerConfig: GoRouter(
           navigatorKey: ezRootNav,
-          initialLocation: '/',
+          initialLocation: homePath,
           errorBuilder: (_, GoRouterState state) => const ErrorScreen(),
           routes: routes,
         ),

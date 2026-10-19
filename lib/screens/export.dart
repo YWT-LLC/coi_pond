@@ -11,4 +11,8 @@ export 'settings.dart';
 
 // Route names //
 
-const String settingsHubPath = 'settings-hub';
+const String homePath = '/';
+const String homeName = 'coi-pond-home';
+
+const String settingsScreenPath = 'settings';
+const String settingsScreenName = 'coi-pond-settings';

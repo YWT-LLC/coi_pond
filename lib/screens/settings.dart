@@ -13,7 +13,7 @@ class SettingsHubScreen extends StatelessWidget {
   final int? target;
   final bool? secondary;
 
-  const SettingsHubScreen({super.key, this.target, this.secondary}) ;
+  const SettingsHubScreen({super.key, this.target, this.secondary});
 
   @override
   Widget build(BuildContext context) {
@@ -110,12 +110,11 @@ class SettingsHubScreen extends StatelessWidget {
         fabs: <Widget>[
           // Rebuild (conditional)
           if (config.needsRebuild) ...<Widget>[
-            config.spacer,
             EzRebuildFAB(config),
+            config.spacer,
           ],
 
           // Save/upload config
-          config.spacer,
           EzConfigFAB(config),
         ],
       ),
