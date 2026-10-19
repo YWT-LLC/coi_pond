@@ -22,6 +22,8 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   // Define the build data //
 
+  late final TargetPlatform curr = getBasePlatform();
+
   // Set the page title //
 
   @override
@@ -44,6 +46,7 @@ class _HomeScreenState extends State<HomeScreen> {
               mainAxisSize: MainAxisSize.max,
               mainAxisAlignment: MainAxisAlignment.center,
               children: Module.values
+                  .where((Module module) => module.platforms.contains(curr))
                   .map((Module module) => Padding(
                         padding: EzInsets.col(config.spacing),
                         child: EzTextIconButton(

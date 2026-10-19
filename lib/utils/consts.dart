@@ -24,6 +24,23 @@ const String androidPackage = 'llc.ywt.coi_pond';
 enum Module { a11how, sos }
 
 extension ModCon on Module {
+  Set<TargetPlatform> get platforms => switch (this) {
+        // a11how - not fuchsia
+        Module.a11how => <TargetPlatform>{
+            TargetPlatform.android,
+            TargetPlatform.iOS,
+            TargetPlatform.linux,
+            TargetPlatform.macOS,
+            TargetPlatform.windows,
+          },
+
+        // sos - mobile
+        Module.sos => <TargetPlatform>{
+            TargetPlatform.android,
+            TargetPlatform.iOS,
+          },
+      };
+
   IconData get icon => switch (this) {
         Module.a11how => Icons.translate,
         Module.sos => Icons.notifications_active,
@@ -50,10 +67,13 @@ extension ModCon on Module {
       };
 
   Future<EzAppCache> cache(EzCP config) async => switch (this) {
+        // a11how
         Module.a11how => a11how_utils.A11howCache(
             config.locale,
             await a11how_utils.Lang.delegate.load(config.locale),
           ),
+
+        // sos
         Module.sos => sos_utils.SOSCache(
             config.locale,
             await sos_utils.Lang.delegate.load(config.locale),
