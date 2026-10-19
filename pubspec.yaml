@@ -32,23 +32,26 @@ dependencies:
     path: ../open_ui
 
   # Modules
+  example:
+    path: ../open_ui/example
+
+  sos:
+    path: ../sos
+
   a11how:
     path: ../a11how
 
   # krotos_chronus:
   #   path: ../krotos_chronus
 
-  # ojnt:
-  #   path: ../ojnt
+  # wyrd_web:
+  #   path: ../wyrd_web
 
   # smoke_signal:
   #   path: ../smoke_signal
 
-  sos:
-    path: ../sos
-
-  # wyrd_web:
-  #   path: ../wyrd_web
+  # ojnt:
+  #   path: ../ojnt
 
 dev_dependencies:
   dependency_validator: ^5.1.0
