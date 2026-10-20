@@ -32,6 +32,9 @@ dependencies:
     path: ../open_ui
 
   # Modules
+  presents:
+    path: ../presents
+
   example:
     path: ../open_ui/example
 
