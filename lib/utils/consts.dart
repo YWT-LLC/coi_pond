@@ -151,7 +151,7 @@ extension ModCon on Module {
       };
 
   String get name => switch (this) {
-        Module.presents => 'UI Packs',
+        Module.presents => 'Presents',
         Module.oui => 'Open UI',
         Module.sos => 'InstaSOS',
         Module.a11how => 'a11how',
