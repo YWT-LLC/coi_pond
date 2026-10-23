@@ -1,5 +1,5 @@
 /* coi_pond
- * Copyright (c) 2026 YWT. All rights reserved.
+ * Copyright (c) 2026 YWT (Empathetech LLC). All rights reserved.
  * See LICENSE for distribution and usage details.
  */
 
@@ -14,7 +14,8 @@ class ErrorScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<EzCP>(builder: (_, EzCP config, __) => CoiPondScaffold(
+    return Consumer<EzCP>(
+      builder: (_, EzCP config, __) => CoiPondScaffold(
         config,
         body: EzScreen(
           config,
