@@ -4,7 +4,7 @@
  */
 
 import 'package:open_ui/open_ui.dart';
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:go_router/go_router.dart';
 
 import 'package:presents/main.dart' as presents_main;
@@ -35,10 +35,6 @@ import 'package:a11how/utils/export.dart' as a11how_utils;
 // import 'package:smoke_signal/screens/export.dart' as signal_screens;
 // import 'package:smoke_signal/utils/export.dart' as signal_utils;
 
-// import 'package:ojnt/main.dart' as ojnt_main;
-// import 'package:ojnt/screens/export.dart' as ojnt_screens;
-// import 'package:ojnt/utils/export.dart' as ojnt_utils;
-
 /// COI POND
 const String appName = 'COI POND';
 
@@ -53,7 +49,6 @@ enum Module {
   // krotos,
   // ww,
   // signal,
-  // ojnt,
 }
 
 extension ModCon on Module {
@@ -117,15 +112,6 @@ extension ModCon on Module {
         //     TargetPlatform.macOS,
         //     TargetPlatform.windows,
         //   },
-
-        // OJNT - not fuchsia
-        // Module.ojnt => <TargetPlatform>{
-        //     TargetPlatform.android,
-        //     TargetPlatform.iOS,
-        //     TargetPlatform.linux,
-        //     TargetPlatform.macOS,
-        //     TargetPlatform.windows,
-        //   },
       };
 
   IconData get icon => switch (this) {
@@ -136,7 +122,6 @@ extension ModCon on Module {
         // krotos => Icons.IDK,
         // wyrd_web => Icons.IDK,
         // smoke_signal => Icons.IDK,
-        // ojnt => Icons.IDK,
       };
 
   String get path => switch (this) {
@@ -147,7 +132,6 @@ extension ModCon on Module {
         // krotos => 'krotos',
         // ww => 'ww',
         // signal, => 'signal',
-        // ojnt => 'ojnt',
       };
 
   String get name => switch (this) {
@@ -158,7 +142,6 @@ extension ModCon on Module {
         // krotos => 'Krotos Chronus',
         // wyrd_web => 'Wyrd Web',
         // smoke_signal => 'Smoke Signal',
-        // ojnt => 'OJNT',
       };
 
   List<RouteBase> get routes => switch (this) {
@@ -169,7 +152,6 @@ extension ModCon on Module {
         // krotos => krotos_main.routes,
         // ww => ww_main.routes,
         // signal => signal_main.routes,
-        // ojnt => ojnt_main.routes,
       };
 
   Widget get homeScreen => switch (this) {
@@ -180,7 +162,6 @@ extension ModCon on Module {
         // krotos => const krotos_screens.HomeScreen(),
         // ww => const ww_screens.HomeScreen(),
         // signal => const signal_screens.HomeScreen(),
-        // ojnt => const ojnt_screens.HomeScreen(),
       };
 
   Future<EzAppCache> cache(EzCP config) async => switch (this) {
@@ -224,12 +205,6 @@ extension ModCon on Module {
         // Module.signal => signal_utils.A11howCache(
         //     config.locale,
         //     await signal_utils.Lang.delegate.load(config.locale),
-        //   ),
-
-        // OJNT
-        // Module.ojnt => ojnt_utils.A11howCache(
-        //     config.locale,
-        //     await ojnt_utils.Lang.delegate.load(config.locale),
         //   ),
       };
 }

@@ -4,9 +4,10 @@
  */
 
 import '../utils/export.dart';
+import 'package:ywt_private/ywt_private.dart' as ywt;
 
 import 'package:open_ui/open_ui.dart';
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 
 class CoiPondScaffold extends StatelessWidget {
   final EzCP config;
@@ -15,6 +16,7 @@ class CoiPondScaffold extends StatelessWidget {
   final Widget body;
   final List<Widget>? fabs;
   final bool isHome;
+  final bool settingsA11;
 
   const CoiPondScaffold(
     this.config, {
@@ -24,6 +26,7 @@ class CoiPondScaffold extends StatelessWidget {
     required this.body,
     this.fabs,
     this.isHome = false,
+    this.settingsA11 = true,
   });
 
   @override
@@ -31,6 +34,11 @@ class CoiPondScaffold extends StatelessWidget {
         small: EzScaffold(
           config,
           body: body,
+          footer: EzFooter(
+            config,
+            quiet: isHome,
+            a11howPath: settingsA11 ? ywt.openUIContributeA11 : ywt.coiPondContributeA11,
+          ),
           fabs: <Widget>[
             if (fabs != null) ...fabs!,
             ...config.backFABs(isHome: isHome),
