@@ -114,6 +114,36 @@ extension ModCon on Module {
         //   },
       };
 
+  Set<String> get assetPaths => switch (this) {
+        // Module.presents => presents_utils.assetPaths,
+        Module.oui => <String>{},
+        Module.sos => sos_utils.assetPaths,
+        Module.a11how => <String>{},
+        // krotos => krotos_utils.assetPaths,
+        // wyrd_web => ww_utils.assetPaths,
+        // smoke_signal => smoke_signal_utils.assetPaths,
+      };
+
+  Set<String> get unique => switch (this) {
+        // Module.presents => presents_utils.uniqueKeys,
+        Module.oui => <String>{},
+        Module.sos => sos_utils.uniqueKeys,
+        Module.a11how => a11how_utils.uniqueKeys,
+        // krotos => krotos_utils.uniqueKeys,
+        // wyrd_web => ww_utils.uniqueKeys,
+        // smoke_signal => smoke_signal_utils.uniqueKeys,
+      };
+
+  Set<String> get neverReset => switch (this) {
+        // Module.presents => presents_utils.neverResetKeys,
+        Module.oui => <String>{},
+        Module.sos => sos_utils.neverResetKeys,
+        Module.a11how => a11how_utils.neverResetKeys,
+        // krotos => krotos_utils.neverResetKeys,
+        // wyrd_web => ww_utils.neverResetKeys,
+        // smoke_signal => smoke_signal_utils.neverResetKeys,
+      };
+
   IconData get icon => switch (this) {
         // Module.presents => Icons.card_giftcard,
         Module.oui => Icons.create,

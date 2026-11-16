@@ -80,16 +80,20 @@ void main() async {
   EzCM.init(
     appName: appName,
     androidPackage: androidPackage,
-    assetPaths: <String>{},
+    assetPaths: Module.values.fold<Set<String>>(
+        <String>{}, (Set<String> acc, Module module) => <String>{...acc, ...module.assetPaths}),
     orientations: DeviceOrientation.values,
     localeFallback: americanEnglish,
     l10nFallback: await OUILang.delegate.load(americanEnglish),
     preferences: await SharedPreferencesWithCache.create(
       cacheOptions: SharedPreferencesWithCacheOptions(
-        allowList: allEZConfigKeys.keys.toSet(),
+        allowList: Module.values.fold<Set<String>>(allEZConfigKeys.keys.toSet(),
+            (Set<String> acc, Module module) => <String>{...acc, ...module.unique}),
       ),
     ),
     defaults: isMobile() ? ywtMobileConfig : ywtDesktopConfig,
+    neverReset: Module.values.fold<Set<String>>(
+        <String>{}, (Set<String> acc, Module module) => <String>{...acc, ...module.neverReset}),
   );
 
   // Run the app //
