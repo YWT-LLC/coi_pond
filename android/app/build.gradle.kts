@@ -6,7 +6,7 @@ plugins {
 
 android {
     namespace = "llc.ywt.coi_pond"
-    compileSdk = flutter.compileSdkVersion
+    compileSdk = 37
     ndkVersion = flutter.ndkVersion
 
     compileOptions {
