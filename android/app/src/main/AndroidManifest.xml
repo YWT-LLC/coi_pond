@@ -7,6 +7,9 @@
     <uses-permission android:name="android.permission.SEND_SMS"/>
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
 
+    <uses-feature android:name="android.telephony.SmsManager" android:required="false"/>
+
+
     <application
         android:label="COI POND"
         android:name=".MainApplication"
