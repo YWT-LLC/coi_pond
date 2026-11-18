@@ -3,8 +3,6 @@
  * See LICENSE for distribution and usage details.
  */
 
-// TODO: add SOS permissions
-
 import './screens/export.dart';
 import './utils/export.dart';
 
