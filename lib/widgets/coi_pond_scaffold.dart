@@ -40,6 +40,15 @@ class CoiPondScaffold extends StatelessWidget {
             a11howPath: settingsA11 ? ywt.openUIContributeA11 : ywt.coiPondContributeA11,
           ),
           fabs: <Widget>[
+            EzUpdaterFAB(
+              config,
+              appVersion: '1.0.1',
+              versionSource:
+                  'https://raw.githubusercontent.com/YWT-LLC/coi_pond/refs/heads/main/APP_VERSION',
+              gPlay: ywt.coiPondGPlay,
+              appStore: ywt.coiPondAppStore,
+              github: ywt.coiPondReleases,
+            ),
             if (fabs != null) ...fabs!,
             ...config.backFABs(isHome: isHome),
           ],
