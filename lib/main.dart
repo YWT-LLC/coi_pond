@@ -1,5 +1,5 @@
 /* coi_pond
- * Copyright (c) 2026 YWT. All rights reserved.
+ * Copyright (c) 2026 YWT (Empathetech LLC). All rights reserved.
  * See LICENSE for distribution and usage details.
  */
 
@@ -7,48 +7,38 @@ import './screens/export.dart';
 import './utils/export.dart';
 
 import 'package:open_ui/open_ui.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-void main() async {
-  // Configure the app //
+// Define the router //
 
-  WidgetsFlutterBinding.ensureInitialized();
-  await SystemChrome.setPreferredOrientations(DeviceOrientation.values);
+final List<RouteBase> routes = <RouteBase>[
+  // Settings
+  GoRoute(
+    path: settingsScreenPath,
+    name: settingsScreenName,
+    pageBuilder: (BuildContext pbc, GoRouterState pbs) =>
+        ezPageBuilder(configWatcher(pbc), pbc, pbs, const SettingsHubScreen()),
+  ),
 
-  EzCM.init(
-    appName: appName,
-    androidPackage: androidPackage,
-    assetPaths: <String>{},
-    orientations: DeviceOrientation.values,
-    localeFallback: americanEnglish,
-    l10nFallback: await OUILang.delegate.load(americanEnglish),
-    preferences: await SharedPreferencesWithCache.create(
-      cacheOptions: SharedPreferencesWithCacheOptions(
-        allowList: allEZConfigKeys.keys.toSet(),
-      ),
-    ),
-    defaults: coiPondConfig,
-  );
+  ...Module.values.map((Module module) => GoRoute(
+        path: module.path,
+        name: module.name,
+        pageBuilder: (BuildContext pbc, GoRouterState pbs) =>
+            ezPageBuilder(configWatcher(pbc), pbc, pbs, module.homeScreen),
+        routes: module.routes,
+      )),
+];
 
-  // Run the app //
-  
-  final (Locale storedLocale, OUILang storedOUILang) = await ezStoredL10n();
-
-  runApp(CoiPond(
-    storedLocale,
-    storedOUILang,
-    await Lang.delegate.load(storedLocale),
-  ));
-}
+// Define the app //
 
 class CoiPond extends StatelessWidget {
   final Locale storedLocale;
   final OUILang storedOUILang;
   final Lang storedLang;
-  
+
   const CoiPond(
     this.storedLocale,
     this.storedOUILang,
@@ -58,33 +48,71 @@ class CoiPond extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => EzConfigurableApp(
-      localizationsDelegates: ezLocalizationsDelegates(Lang.localizationsDelegates),
-      supportedLocales: Lang.supportedLocales,
-      locale: storedLocale,
-      el10n: storedOUILang,
-      appCache: CoiPondCache(storedLocale, storedLang),
-      routerConfig: GoRouter(
-        navigatorKey: ezRootNav,
-        initialLocation: homePath,
-        errorBuilder: (_, GoRouterState state) => const ErrorScreen(),
-        routes: <RouteBase>[
-          // Home
-          GoRoute(
-            path: homePath,
-            name: homePath,
-            pageBuilder: (BuildContext pbc, GoRouterState pbs) =>
-                ezPageBuilder(configWatcher(pbc), pbc, pbs, const HomeScreen()),
-            routes: <RouteBase>[
-              // Settings
-              GoRoute(
-                path: settingsHubPath,
-                name: settingsHubPath,
-                pageBuilder: (BuildContext pbc, GoRouterState pbs) =>
-                    ezPageBuilder(configWatcher(pbc), pbc, pbs, const SettingsHubScreen()),
-              ),
-            ],
-          ),
-        ],
+        localizationsDelegates: ezLocalizationsDelegates(Lang.localizationsDelegates),
+        supportedLocales: Lang.supportedLocales,
+        locale: storedLocale,
+        el10n: storedOUILang,
+        appCache: CoiPondCache(storedLocale, storedLang),
+        routerConfig: GoRouter(
+          navigatorKey: ezRootNav,
+          initialLocation: homePath,
+          errorBuilder: (_, GoRouterState state) => const ErrorScreen(),
+          routes: <RouteBase>[
+            // Home
+            GoRoute(
+              path: homePath,
+              name: homeName,
+              pageBuilder: (BuildContext pbc, GoRouterState pbs) =>
+                  ezPageBuilder(configWatcher(pbc), pbc, pbs, const HomeScreen()),
+              routes: routes,
+            ),
+          ],
+        ),
+      );
+}
+
+void main() async {
+  // Configure the environment //
+
+  WidgetsFlutterBinding.ensureInitialized();
+  await SystemChrome.setPreferredOrientations(DeviceOrientation.values);
+
+  EzCM.init(
+    appName: appName,
+    androidPackage: androidPackage,
+    assetPaths: Module.values.fold<Set<String>>(
+      <String>{},
+      (Set<String> acc, Module module) => <String>{...acc, ...module.assetPaths},
+    ),
+    orientations: DeviceOrientation.values,
+    localeFallback: americanEnglish,
+    l10nFallback: await OUILang.delegate.load(americanEnglish),
+    preferences: await SharedPreferencesWithCache.create(
+      cacheOptions: SharedPreferencesWithCacheOptions(
+        allowList: Module.values.fold<Set<String>>(
+          allEzConfigPairs.keys.toSet(),
+          (Set<String> acc, Module module) => <String>{...acc, ...module.uniqueKeys},
+        ),
       ),
-    );
+    ),
+    defaults: Module.values.fold<Map<String, dynamic>>(
+      isMobile() ? ywtMobileConfig : ywtDesktopConfig,
+      (Map<String, dynamic> acc, Module module) =>
+          <String, dynamic>{...acc, ...module.uniqueDefaults},
+    ),
+    neverReset: Module.values.fold<Set<String>>(
+      <String>{},
+      (Set<String> acc, Module module) => <String>{...acc, ...module.neverResetKeys},
+    ),
+  );
+
+  // Run the app //
+
+  final (Locale storedLocale, OUILang storedOUILang) = await ezStoredL10n();
+
+  runApp(CoiPond(
+    storedLocale,
+    storedOUILang,
+    await Lang.delegate.load(storedLocale),
+  ));
 }

@@ -1,5 +1,5 @@
 /* coi_pond
- * Copyright (c) 2026 YWT. All rights reserved.
+ * Copyright (c) 2026 YWT (Empathetech LLC). All rights reserved.
  * See LICENSE for distribution and usage details.
  */
 
@@ -11,5 +11,8 @@ export 'settings.dart';
 
 // Route names //
 
-/// settings-hub
-const String settingsHubPath = 'settings-hub';
+const String homePath = '/';
+const String homeName = 'coi-pond-home';
+
+const String settingsScreenPath = 'settings';
+const String settingsScreenName = 'coi-pond-settings';

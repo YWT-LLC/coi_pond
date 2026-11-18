@@ -2,9 +2,9 @@
 
 All notable changes to this project will be documented in this file.
 
-## [1.0.0] - 2026-XX-XX
+## [1.0.1] - 2026-11-18
 ### Added
-- coi_pond V1
+- V1 (aka everything)
 
 ## [0.0.0] - 2026-10-18
 ### Added
