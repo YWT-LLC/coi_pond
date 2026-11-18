@@ -94,8 +94,8 @@ BEGIN
             VALUE "FileVersion", VERSION_AS_STRING "\0"
             VALUE "InternalName", "coi_pond" "\0"
             VALUE "LegalCopyright", "Copyright (C) 2026 llc.ywt. All rights reserved." "\0"
-            VALUE "OriginalFilename", "coi_pond.exe" "\0"
-            VALUE "ProductName", "coi_pond" "\0"
+            VALUE "OriginalFilename", "COI POND.exe" "\0"
+            VALUE "ProductName", "COI POND" "\0"
             VALUE "ProductVersion", VERSION_AS_STRING "\0"
         END
     END
