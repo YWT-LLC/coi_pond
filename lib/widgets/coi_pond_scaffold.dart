@@ -42,7 +42,7 @@ class CoiPondScaffold extends StatelessWidget {
           fabs: <Widget>[
             EzUpdaterFAB(
               config,
-              appVersion: '1.0.1',
+              appVersion: '1.0.2',
               versionSource:
                   'https://raw.githubusercontent.com/YWT-LLC/coi_pond/refs/heads/main/APP_VERSION',
               gPlay: ywt.coiPondGPlay,
