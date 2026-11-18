@@ -26,6 +26,22 @@
 		<string>$(FLUTTER_BUILD_NUMBER)</string>
 		<key>LSRequiresIPhoneOS</key>
 		<true/>
+		<key>NSCameraUsageDescription</key>
+		<string>COI POND needs access to your camera to share photos/videos with your emergency contacts.</string>
+		<key>NSContactsUsageDescription</key>
+		<string>COI POND needs to be able to save your emergency contacts.</string>
+		<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+		<string>COI POND needs access to your location to share it with your emergency contacts.</string>
+		<key>NSLocationAlwaysUsageDescription</key>
+		<string>COI POND needs access to your location to share it with your emergency contacts.</string>
+		<key>NSLocationUsageDescription</key>
+		<string>COI POND needs access to your location to share it with your emergency contacts.</string>
+		<key>NSLocationWhenInUseUsageDescription</key>
+		<string>COI POND needs access to your location to share it with your emergency contacts.</string>
+		<key>NSMicrophoneUsageDescription</key>
+		<string>COI POND needs access to your microphone to record videos with audio.</string>
+		<key>NSPhotoLibraryUsageDescription</key>
+		<string>COI POND needs access to your photo library to save photos/videos.</string>
 		<key>UIApplicationSceneManifest</key>
 		<dict>
 			<key>UIApplicationSupportsMultipleScenes</key>
