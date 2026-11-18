@@ -134,6 +134,16 @@ extension ModCon on Module {
         // smoke_signal => smoke_signal_utils.uniquePairs,
       };
 
+  Map<String, Object> get uniqueDefaults => switch (this) {
+        // Module.presents => presents_utils.uniqueDefaults,
+        Module.oui => oui_utils.uniqueDefaults,
+        Module.sos => sos_utils.uniqueDefaults,
+        Module.a11how => a11how_utils.uniqueDefaults,
+        // krotos => krotos_utils.uniqueDefaults,
+        // wyrd_web => ww_utils.uniqueDefaults,
+        // smoke_signal => smoke_signal_utils.uniqueDefaults,
+      };
+
   Set<String> get uniqueKeys => uniquePairs.keys.toSet();
 
   Map<String, Type> get neverResetPairs => switch (this) {

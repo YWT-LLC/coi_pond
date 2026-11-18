@@ -97,7 +97,8 @@ void main() async {
     ),
     defaults: Module.values.fold<Map<String, dynamic>>(
       isMobile() ? ywtMobileConfig : ywtDesktopConfig,
-      (Map<String, dynamic> acc, Module module) => <String, dynamic>{...acc, ...module.uniquePairs},
+      (Map<String, dynamic> acc, Module module) =>
+          <String, dynamic>{...acc, ...module.uniqueDefaults},
     ),
     neverReset: Module.values.fold<Set<String>>(
       <String>{},
