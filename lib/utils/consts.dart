@@ -124,25 +124,29 @@ extension ModCon on Module {
         // smoke_signal => smoke_signal_utils.assetPaths,
       };
 
-  Set<String> get unique => switch (this) {
-        // Module.presents => presents_utils.uniqueKeys,
-        Module.oui => <String>{},
-        Module.sos => sos_utils.uniqueKeys,
-        Module.a11how => a11how_utils.uniqueKeys,
-        // krotos => krotos_utils.uniqueKeys,
-        // wyrd_web => ww_utils.uniqueKeys,
-        // smoke_signal => smoke_signal_utils.uniqueKeys,
+  Map<String, Type> get uniquePairs => switch (this) {
+        // Module.presents => presents_utils.uniquePairs,
+        Module.oui => oui_utils.uniquePairs,
+        Module.sos => sos_utils.uniquePairs,
+        Module.a11how => a11how_utils.uniquePairs,
+        // krotos => krotos_utils.uniquePairs,
+        // wyrd_web => ww_utils.uniquePairs,
+        // smoke_signal => smoke_signal_utils.uniquePairs,
       };
 
-  Set<String> get neverReset => switch (this) {
-        // Module.presents => presents_utils.neverResetKeys,
-        Module.oui => <String>{},
-        Module.sos => sos_utils.neverResetKeys,
-        Module.a11how => a11how_utils.neverResetKeys,
-        // krotos => krotos_utils.neverResetKeys,
-        // wyrd_web => ww_utils.neverResetKeys,
-        // smoke_signal => smoke_signal_utils.neverResetKeys,
+  Set<String> get uniqueKeys => uniquePairs.keys.toSet();
+
+  Map<String, Type> get neverResetPairs => switch (this) {
+        // Module.presents => presents_utils.neverResetPairs,
+        Module.oui => <String, Type>{},
+        Module.sos => sos_utils.neverResetPairs,
+        Module.a11how => a11how_utils.neverResetPairs,
+        // krotos => krotos_utils.neverResetPairs,
+        // wyrd_web => ww_utils.neverResetPairs,
+        // smoke_signal => smoke_signal_utils.neverResetPairs,
       };
+
+  Set<String> get neverResetKeys => neverResetPairs.keys.toSet();
 
   IconData get icon => switch (this) {
         // Module.presents => Icons.card_giftcard,

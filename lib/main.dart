@@ -81,19 +81,28 @@ void main() async {
     appName: appName,
     androidPackage: androidPackage,
     assetPaths: Module.values.fold<Set<String>>(
-        <String>{}, (Set<String> acc, Module module) => <String>{...acc, ...module.assetPaths}),
+      <String>{},
+      (Set<String> acc, Module module) => <String>{...acc, ...module.assetPaths},
+    ),
     orientations: DeviceOrientation.values,
     localeFallback: americanEnglish,
     l10nFallback: await OUILang.delegate.load(americanEnglish),
     preferences: await SharedPreferencesWithCache.create(
       cacheOptions: SharedPreferencesWithCacheOptions(
-        allowList: Module.values.fold<Set<String>>(allEZConfigKeys.keys.toSet(),
-            (Set<String> acc, Module module) => <String>{...acc, ...module.unique}),
+        allowList: Module.values.fold<Set<String>>(
+          allEzConfigPairs.keys.toSet(),
+          (Set<String> acc, Module module) => <String>{...acc, ...module.uniqueKeys},
+        ),
       ),
     ),
-    defaults: isMobile() ? ywtMobileConfig : ywtDesktopConfig,
+    defaults: Module.values.fold<Map<String, dynamic>>(
+      isMobile() ? ywtMobileConfig : ywtDesktopConfig,
+      (Map<String, dynamic> acc, Module module) => <String, dynamic>{...acc, ...module.uniquePairs},
+    ),
     neverReset: Module.values.fold<Set<String>>(
-        <String>{}, (Set<String> acc, Module module) => <String>{...acc, ...module.neverReset}),
+      <String>{},
+      (Set<String> acc, Module module) => <String>{...acc, ...module.neverResetKeys},
+    ),
   );
 
   // Run the app //
