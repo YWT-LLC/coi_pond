@@ -36,8 +36,8 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<EzCP>(
-      builder: (_, EzCP config, __) => CoiPondScaffold(
+    return Consumer<EzProvider>(
+      builder: (_, EzProvider config, __) => CoiPondScaffold(
         config,
         body: EzScreen(
           config,

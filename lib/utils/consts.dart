@@ -208,7 +208,7 @@ extension ModCon on Module {
         // signal => const signal_screens.HomeScreen(),
       };
 
-  Future<EzAppCache> cache(EzCP config) async => switch (this) {
+  Future<EzAppCache> cache(EzProvider config) async => switch (this) {
         // Presents
         // Module.presents => presents_utils.PresentsCache(
         //     config.locale,
