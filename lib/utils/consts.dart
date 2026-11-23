@@ -7,9 +7,9 @@ import 'package:open_ui/open_ui.dart';
 import 'package:material_ui/material_ui.dart';
 import 'package:go_router/go_router.dart';
 
-// import 'package:presents/main.dart' as presents_main;
-// import 'package:presents/screens/export.dart' as presents_screens;
-// import 'package:presents/utils/export.dart' as presents_utils;
+import 'package:presents/main.dart' as presents_main;
+import 'package:presents/screens/export.dart' as presents_screens;
+import 'package:presents/utils/export.dart' as presents_utils;
 
 import 'package:example/main.dart' as oui_main;
 import 'package:example/screens/export.dart' as oui_screens;
@@ -42,7 +42,7 @@ const String appName = 'COI POND';
 const String androidPackage = 'llc.ywt.coi_pond';
 
 enum Module {
-  // presents,
+  presents,
   oui,
   sos,
   a11how,
@@ -54,13 +54,13 @@ enum Module {
 extension ModCon on Module {
   Set<TargetPlatform> get platforms => switch (this) {
         // Presents - not fuchsia
-        // Module.presents => <TargetPlatform>{
-        //     TargetPlatform.android,
-        //     TargetPlatform.iOS,
-        //     TargetPlatform.linux,
-        //     TargetPlatform.macOS,
-        //     TargetPlatform.windows,
-        //   },
+        Module.presents => <TargetPlatform>{
+            TargetPlatform.android,
+            TargetPlatform.iOS,
+            TargetPlatform.linux,
+            TargetPlatform.macOS,
+            TargetPlatform.windows,
+          },
 
         // Open UI - not fuchsia
         Module.oui => <TargetPlatform>{
@@ -115,7 +115,7 @@ extension ModCon on Module {
       };
 
   Set<String> get assetPaths => switch (this) {
-        // Module.presents => presents_utils.assetPaths,
+        Module.presents => <String>{},
         Module.oui => <String>{},
         Module.sos => sos_utils.assetPaths,
         Module.a11how => <String>{},
@@ -125,7 +125,7 @@ extension ModCon on Module {
       };
 
   Map<String, Type> get uniquePairs => switch (this) {
-        // Module.presents => presents_utils.uniquePairs,
+        Module.presents => presents_utils.uniquePairs,
         Module.oui => oui_utils.uniquePairs,
         Module.sos => sos_utils.uniquePairs,
         Module.a11how => a11how_utils.uniquePairs,
@@ -135,7 +135,7 @@ extension ModCon on Module {
       };
 
   Map<String, Object> get uniqueDefaults => switch (this) {
-        // Module.presents => presents_utils.uniqueDefaults,
+        Module.presents => presents_utils.uniqueDefaults,
         Module.oui => oui_utils.uniqueDefaults,
         Module.sos => sos_utils.uniqueDefaults,
         Module.a11how => a11how_utils.uniqueDefaults,
@@ -147,7 +147,7 @@ extension ModCon on Module {
   Set<String> get uniqueKeys => uniquePairs.keys.toSet();
 
   Map<String, Type> get neverResetPairs => switch (this) {
-        // Module.presents => presents_utils.neverResetPairs,
+        Module.presents => presents_utils.neverResetPairs,
         Module.oui => <String, Type>{},
         Module.sos => sos_utils.neverResetPairs,
         Module.a11how => a11how_utils.neverResetPairs,
@@ -159,7 +159,7 @@ extension ModCon on Module {
   Set<String> get neverResetKeys => neverResetPairs.keys.toSet();
 
   IconData get icon => switch (this) {
-        // Module.presents => Icons.card_giftcard,
+        Module.presents => Icons.card_giftcard,
         Module.oui => Icons.create,
         Module.sos => Icons.notifications_active,
         Module.a11how => Icons.translate,
@@ -169,7 +169,7 @@ extension ModCon on Module {
       };
 
   String get path => switch (this) {
-        // Module.presents => 'presents',
+        Module.presents => 'presents',
         Module.oui => 'oui',
         Module.sos => 'sos',
         Module.a11how => 'a11how',
@@ -179,7 +179,7 @@ extension ModCon on Module {
       };
 
   String get name => switch (this) {
-        // Module.presents => 'Presents',
+        Module.presents => 'Presents',
         Module.oui => 'Open UI',
         Module.sos => 'InstaSOS',
         Module.a11how => 'a11how',
@@ -189,7 +189,7 @@ extension ModCon on Module {
       };
 
   List<RouteBase> get routes => switch (this) {
-        // Module.presents => presents_main.routes,
+        Module.presents => presents_main.routes,
         Module.oui => oui_main.routes,
         Module.sos => sos_main.routes,
         Module.a11how => a11how_main.routes,
@@ -199,7 +199,7 @@ extension ModCon on Module {
       };
 
   Widget get homeScreen => switch (this) {
-        // Module.presents => const presents_screens.HomeScreen(),
+        Module.presents => const presents_screens.HomeScreen(),
         Module.oui => const oui_screens.HomeScreen(),
         Module.sos => const sos_screens.HomeScreen(),
         Module.a11how => const a11how_screens.HomeScreen(),
@@ -210,10 +210,10 @@ extension ModCon on Module {
 
   Future<EzAppCache> cache(EzProvider config) async => switch (this) {
         // Presents
-        // Module.presents => presents_utils.PresentsCache(
-        //     config.locale,
-        //     await presents_utils.Lang.delegate.load(config.locale),
-        //   ),
+        Module.presents => presents_utils.PresentsCache(
+            config.locale,
+            await presents_utils.Lang.delegate.load(config.locale),
+          ),
 
         // Open UI
         Module.oui => oui_utils.OpenUICache(

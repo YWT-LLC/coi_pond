@@ -5,6 +5,10 @@
 list(APPEND FLUTTER_PLUGIN_LIST
   file_saver
   file_selector_windows
+  firebase_core
+  cloud_firestore
+  firebase_app_check
+  firebase_auth
   flutter_secure_storage_windows
   gal
   geolocator_windows
