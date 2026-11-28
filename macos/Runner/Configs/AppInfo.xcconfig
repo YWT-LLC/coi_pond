@@ -8,7 +8,7 @@
 PRODUCT_NAME = COI POND
 
 // The application's bundle identifier
-PRODUCT_BUNDLE_IDENTIFIER = net.empathetech.coiPond
+PRODUCT_BUNDLE_IDENTIFIER = net.empathetech.coi-pond
 
 // The copyright displayed in application information
 PRODUCT_COPYRIGHT = Copyright © 2026 YWT (Empathetech LLC). All rights reserved.
