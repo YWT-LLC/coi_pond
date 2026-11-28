@@ -4,8 +4,9 @@
  */
 
 import 'package:open_ui/open_ui.dart';
-import 'package:material_ui/material_ui.dart';
+import 'package:flutter/foundation.dart';
 import 'package:go_router/go_router.dart';
+import 'package:material_ui/material_ui.dart';
 
 import 'package:presents/main.dart' as presents_main;
 import 'package:presents/screens/export.dart' as presents_screens;
@@ -41,6 +42,9 @@ const String appName = 'COI POND';
 /// llc.ywt.coi_pond
 const String androidPackage = 'llc.ywt.coi_pond';
 
+/// Firebase has no native Linux SDK
+final bool firebaseSupported = kIsWeb || defaultTargetPlatform != TargetPlatform.linux;
+
 enum Module {
   presents,
   oui,
@@ -53,11 +57,10 @@ enum Module {
 
 extension ModCon on Module {
   Set<TargetPlatform> get platforms => switch (this) {
-        // Presents - not fuchsia
+        // Presents - !(fuchsia || native Linux)
         Module.presents => <TargetPlatform>{
             TargetPlatform.android,
             TargetPlatform.iOS,
-            TargetPlatform.linux,
             TargetPlatform.macOS,
             TargetPlatform.windows,
           },
