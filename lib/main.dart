@@ -42,8 +42,8 @@ final List<RouteBase> routes = <RouteBase>[
 // Define the app //
 
 class CoiPond extends StatelessWidget {
-  final FirebaseAuth auth;
-  final FirebaseFirestore db;
+  final FirebaseAuth? auth;
+  final FirebaseFirestore? db;
   final Locale storedLocale;
   final OUILang storedOUILang;
   final Lang storedLang;
@@ -58,10 +58,17 @@ class CoiPond extends StatelessWidget {
   });
 
   @override
-  Widget build(BuildContext context) => ChangeNotifierProvider<Presenter>(
-        create: (_) => Presenter(auth: auth, db: db),
-        child: _TheMagic(storedLocale, storedOUILang, storedLang),
-      );
+  Widget build(BuildContext context) {
+    if (auth == null || db == null) {
+      // Linux
+      return _TheMagic(storedLocale, storedOUILang, storedLang);
+    }
+
+    return ChangeNotifierProvider<Presenter>(
+      create: (_) => Presenter(auth: auth!, db: db!),
+      child: _TheMagic(storedLocale, storedOUILang, storedLang),
+    );
+  }
 }
 
 class _TheMagic extends StatelessWidget {
@@ -101,7 +108,10 @@ void main() async {
 
   WidgetsFlutterBinding.ensureInitialized();
   await SystemChrome.setPreferredOrientations(DeviceOrientation.values);
-  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  if (firebaseSupported) {
+    // Linux
+    await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  }
 
   EzManager.init(
     appName: appName,
@@ -138,11 +148,19 @@ void main() async {
 
   final (Locale storedLocale, OUILang storedOUILang) = await ezStoredL10n();
 
-  runApp(CoiPond(
-    FirebaseAuth.instance,
-    FirebaseFirestore.instance,
-    storedLocale,
-    storedOUILang,
-    await Lang.delegate.load(storedLocale),
-  ));
+  runApp(firebaseSupported
+      ? CoiPond(
+          FirebaseAuth.instance,
+          FirebaseFirestore.instance,
+          storedLocale,
+          storedOUILang,
+          await Lang.delegate.load(storedLocale),
+        )
+      : CoiPond(
+          null,
+          null,
+          storedLocale,
+          storedOUILang,
+          await Lang.delegate.load(storedLocale),
+        ));
 }
